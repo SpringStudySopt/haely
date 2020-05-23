@@ -20,7 +20,8 @@ Update - PUT<br>
 Delete - DELETE<br>
 
 ### 3. 서버 아키텍처
-![server architecture](./img/springarchitecture.png)
+<img src="./img/springarchitecture.png" width="70%">
+
 * WAS : 웹 서버로는 처리할 수 없는 **동적 컨텐츠인 데이터베이스 조회 및 로직 처리**를 담당한다. 사전적 정의로는 인터넷 상에서 HTTP 프로토콜을 통해 사용자 컴퓨터나 장치에 어플리케이션을 수행해주는 **미들웨어**이며, 주로 동적 서버 컨텐츠를 수행하는 것으로 일반적인 웹 서버와 구별이 된다. 주로 데이터베이스 서버와 같이 수행된다.
     - 효율성 때문에 서버가 나뉘게 됨!<br>
     _WAS는 비즈니스 로직 처리하기 바빠서 웹 서버에게 정적 컨텐츠 처리를 맡김. 그렇지 않으면 속도가 느려진다. 따라서 웹 서버를 두고 플러그인 형태로 WAS를 두어 데이터를 효율적으로 처리하도록 구성._<br>
@@ -50,14 +51,16 @@ Delete - DELETE<br>
 
 
 # MVC 패턴
-![mvc](./img/mvc.png)
+<img src="./img/mvc.png" width="70%">
+
 * _Controller_ : 클라이언트의 요청을 실질적으로 수행하는 모델을 호출하고, 데이터를 가공하고, 모델이 일을 마치면 그 결과를 뷰에게 전달한다.
 * _Model_ : 컨트롤러의 호출을 받으면 요청에 맞게 역할을 수행한다. 여기서 DB와 연결하고, CRUD등 데이터 처리가 이루어진다.
 * _View_ : 모델의 결과 값을 가지고 사용자에게 보여줄 결과 화면을 만드는 영역이다.
 
 
 ## Spring MVC 패턴
-![springmvc](./img/springmvc.png)
+<img src="./img/springmvc.png" width="70%">
+
 * _DispatcherServlet_ : Front Controller 역할(모든 웹 어플리케이션에 대한 요청을 받고, 그 요청을 Controller로 분배해주는 패턴). Spring MVC의 웹 요청 Life Cycle을 주관.  
 [참조 링크](https://minwan1.github.io/2018/05/28/2018-05-28-spring-mvc/)
 
@@ -114,12 +117,35 @@ Delete - DELETE<br>
 - 각각의 객체 생성, 소멸과 같은 Life Cycle을 관리. 스프링으로부터 필요한 객체를 얻어옴.
 > *컨테이너 : 객체 관리를 주로 수행하는 그릇
 
-- 🧐_왜 컨테이너 사용?_<br>
+- _왜 컨테이너 사용?_<br>
 객체지향 프로그래밍은 **낮은 결합도 & 높은 캡슐화** 추구<br>=>객체 간 **의존성을 낮추기 위해** spring container 이용<br><br><img src = "./img/container.png" width="70%">
 
+<br><br>
 
 ### 2. 제어 역행(IoC : Inversion of Control)
 - 애플리케이션의 느슨한 결합을 도모
 - 컨트롤의 제어권이 프레임워크에 있어서 필요에 따라 스프링에서 사용자 코드를 호출
 - 실행에 필요한 객체의 생성, 사용 등 제어 권한을 위임하는 것<br><br><img src = "./img/IoC.png" width="70%">
 
+<br><br>
+
+### 3. 의존성 주입(DI : Dependency Injection)
+- 각각의 계층이나 서비스들 간에 의존성이 존재할 경우, 프레임워크가 서로 연결시켜줌
+- POJO 객체들 사이의 의존 관계를 Spring이 알아서 연관성 맺어줌
+- 다양한 DB 사용이 가능
+
+
+> **<직접 생성>**<br><br>
+<img src = "./img/directcreate.png" width="70%"><br>MainClass 가 Cats 를 의존<br>MainClass 에서 직접 Cats 클래스를 생성해서 사용<br><br><br>
+**<DI 방식>**<br><br>
+<img src = "./img/dicreate.png" width="70%"><br>Cats 와 MyCats 로 나눔!<br>Cats – 실제 기능을 하는 메소드 / MyCats – 필요한 필드 선언 후 setter 만듦<br><br>_자바 특성인 정보은닉 때문에 setter 사용<br>private인 클래스의 변수에 접근하기 위해<br>public인 setter로 read. 클래스 외부에선 접근 X_
+<br><br><img src="./img/dicreate2.png" width="70%"><br>외부(ConfigLocation)에서 객체 얻어와서 사용!<br>직접 생성하는 방법처럼 Cats cats = new Cats(); 하지 않고 외부에서 얻어와서 객체 생성<br>[참조 블로그](https://private.tistory.com/39)<br><br>* 고양이 말고 강아지 정보를 보고 싶으면?<br>- 직접 생성 : MainClass 코드를 싹 다 고쳐야 함<br>- DI 방식 : 설정파일만 바꾸면 됨(DB마다 메소드를 바꾸지 않아도 되므로 다양한 DB 활용에 좋음) 
+
+
+<br><br>
+
+### 4. 관점지향 프로그래밍(AOP : Aspect-Oriented Programming)
+- 트랜잭션, 로깅, 보안 등 여러 모듈에서 공통적으로 사용하는 기능을 분리해서 관리 가능
+- 공통 관심사를 분리하여 개발, 실행 시 서로 조합
+- 코드를 단순하고 깔끔하게 작성 가능
+<br><br><img src="./img/aop.png" width="70%">
