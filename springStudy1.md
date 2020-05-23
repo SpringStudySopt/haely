@@ -117,8 +117,7 @@ Delete - DELETE<br>
 - 각각의 객체 생성, 소멸과 같은 Life Cycle을 관리. 스프링으로부터 필요한 객체를 얻어옴.
 > *컨테이너 : 객체 관리를 주로 수행하는 그릇
 
-- _왜 컨테이너 사용?_<br>
-객체지향 프로그래밍은 **낮은 결합도 & 높은 캡슐화** 추구<br>=>객체 간 **의존성을 낮추기 위해** spring container 이용<br><br><img src = "./img/container.png" width="70%">
+- _왜 컨테이너 사용?_<br>객체지향 프로그래밍은 **낮은 결합도 & 높은 캡슐화** 추구<br>=>객체 간 **의존성을 낮추기 위해** spring container 이용<br><br><img src = "./img/container.png" width="70%">
 
 <br><br>
 
